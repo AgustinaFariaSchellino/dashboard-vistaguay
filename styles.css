@@ -1,0 +1,68 @@
+:root {
+    --background-dark: #111217;
+    --panel-bg: #181b1f;
+    --border-muted: #2f3032;
+    --accent-green: #32d74b;
+    --grafana-blue: #3274d9;
+    --grafana-orange: #f2994a;
+    --grafana-red: #f44336;
+}
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    background-color: var(--background-dark); 
+    margin: 0; 
+    padding: 0; 
+    color: white;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: var(--background-dark); }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: var(--border-muted); border-radius: 3px; }
+
+/* Grafana Panel */
+.grafana-panel {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-muted);
+    border-radius: 2px;
+}
+
+/* Utilities */
+.popover-shadow {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+.map-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.group:hover .map-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Component Classes (Converted from Tailwind @apply for external compatibility) */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #27272a; /* border-zinc-800 */
+}
+
+.section-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #71717a; /* text-zinc-500 */
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+    font-variant: small-caps;
+}
