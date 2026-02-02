@@ -1,0 +1,726 @@
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Vistaguay: Dashboard Estructurado v11.0</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style type="text/tailwindcss">
+        :root {
+            --background-dark: #111217;
+            --panel-bg: #181b1f;
+            --border-muted: #2f3032;
+            --accent-green: #32d74b;
+            --grafana-blue: #3274d9;
+            --grafana-orange: #f2994a;
+            --grafana-red: #f44336;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--background-dark); 
+            margin: 0; 
+            padding: 0; 
+            color: white;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: var(--background-dark); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--border-muted); border-radius: 3px; }
+        .grafana-panel {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-muted);
+            border-radius: 2px;
+        }
+        .popover-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+        }
+        .map-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            pointer-events: none;
+        }
+        .group:hover .map-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        .section-header {
+            @apply flex items-center gap-4 py-2 mt-4 mb-2 border-b border-zinc-800;
+        }
+        .section-title {
+            @apply text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] whitespace-nowrap;
+            font-variant: small-caps;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col overflow-x-hidden custom-scrollbar">
+    <header
+        class="flex flex-col border-b border-[var(--border-muted)] bg-[var(--background-dark)] sticky top-0 z-[100] w-full flex-none">
+        <div class="flex items-center justify-between px-4 py-2 bg-[#111217]">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="size-7 bg-[var(--accent-green)] rounded-sm flex items-center justify-center">
+                        <span class="material-symbols-outlined text-black font-bold scale-75">agriculture</span>
+                    </div>
+                    <h1 class="text-sm font-semibold tracking-tight">Vistaguay <span
+                            class="text-zinc-500 font-normal">v11.0 Dashboard Estructurado</span></h1>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button
+                    class="flex h-7 items-center gap-2 rounded bg-[var(--panel-bg)] border border-[var(--border-muted)] px-3 hover:border-zinc-500 transition-colors">
+                    <span class="material-symbols-outlined text-[var(--grafana-blue)] scale-75">calendar_month</span>
+                    <span class="text-[11px] font-medium text-zinc-300">Ene - Jun 2024</span>
+                    <span class="material-symbols-outlined text-zinc-500 scale-50">expand_more</span>
+                </button>
+                <div class="size-7 rounded-full border border-[var(--border-muted)] bg-cover bg-center"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAoKLPgveaBoktkxmsiqkNqSNKK9EuZReh1Mf1aRtjdrcxigORt1h2AI3FcfFZVpi44w01zu2BK3_snhIyfyRhX6fF9M3byzbmPOPsLjDnYxyyMD4SqeQoQELPScPIbkQuVGvwvM_8EKckoWvRuMYqT4yrCQXd7Rc-Yb6sGoC32RaOG_FiuRm4dEV7Ww1L38MtQ2du2dbNuUf9cIPfldFg5bI0TVsBrFjLiiKu6m6ApbF80eZKamPH3bCgc7cPTmFpbRIK9dcN-g2D5');">
+                </div>
+            </div>
+        </div>
+        <div
+            class="flex items-center gap-3 px-4 py-2 bg-[#1c1e23] border-t border-[var(--border-muted)] overflow-x-auto whitespace-nowrap">
+            <div class="flex items-center gap-4">
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase font-bold text-zinc-500 leading-none mb-1">Cliente</span>
+                    <select
+                        class="h-6 bg-[var(--background-dark)] border border-[var(--border-muted)] rounded text-[11px] font-bold py-0 pl-2 pr-8 focus:ring-1 focus:ring-[var(--accent-green)]">
+                        <option>Todos</option>
+                        <option>Lotes Jose Semillas</option>
+                        <option>Cliente Especial</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase font-bold text-zinc-500 leading-none mb-1">Proyecto</span>
+                    <select
+                        class="h-6 bg-[var(--background-dark)] border border-[var(--border-muted)] rounded text-[11px] font-bold py-0 pl-2 pr-8 focus:ring-1 focus:ring-[var(--accent-green)]">
+                        <option>Todos</option>
+                        <option>Campos Norte</option>
+                        <option>Semillero Norte</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase font-bold text-zinc-500 leading-none mb-1">Provincia</span>
+                    <select
+                        class="h-6 bg-[var(--background-dark)] border border-[var(--border-muted)] rounded text-[11px] font-semibold py-0 pl-2 pr-8 focus:ring-1 focus:ring-[var(--accent-green)]">
+                        <option selected="">Todas</option>
+                        <option>Córdoba</option>
+                        <option>Santa Fe</option>
+                        <option>Buenos Aires</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-1 p-4 w-full max-w-[1920px] mx-auto flex flex-col gap-6">
+
+        <!-- SECTION 1: Monitor de Impacto (Full Viewport) -->
+        <!-- Requirement: min-h-screen or min-h-[90vh], Map A grows, no fixed px -->
+        <section class="flex flex-col min-h-[calc(100vh-140px)]">
+            <div class="section-header flex-none">
+                <span class="section-title">Monitor de Impacto</span>
+            </div>
+            <div class="grid grid-cols-12 gap-3 flex-1 h-full min-h-0">
+                <div class="col-span-12 lg:col-span-4 flex flex-col gap-3 h-full">
+                    <div class="grafana-panel p-5 flex flex-col flex-1 h-full justify-between">
+                        <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Distribución de
+                            Hectáreas</h3>
+                        <div class="flex flex-1 items-center gap-6 justify-center">
+                            <div class="relative size-36 lg:size-48 flex-shrink-0">
+                                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" fill="transparent" r="40" stroke="#2f3032"
+                                        stroke-width="10"></circle>
+                                    <circle class="hover:opacity-80 transition-opacity" cx="50" cy="50"
+                                        fill="transparent" r="40" stroke="var(--accent-green)" stroke-dasharray="251.2"
+                                        stroke-dashoffset="88" stroke-width="10"></circle>
+                                    <circle class="rotate-[234deg] origin-center hover:opacity-80 transition-opacity"
+                                        cx="50" cy="50" fill="transparent" r="40" stroke="var(--grafana-blue)"
+                                        stroke-dasharray="251.2" stroke-dashoffset="180.8" stroke-width="10"></circle>
+                                    <circle class="rotate-[335deg] origin-center hover:opacity-80 transition-opacity"
+                                        cx="50" cy="50" fill="transparent" r="40" stroke="var(--grafana-orange)"
+                                        stroke-dasharray="251.2" stroke-dashoffset="233.6" stroke-width="10"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                    <span class="text-xl lg:text-3xl font-black leading-none">42.850</span>
+                                    <span class="text-[8px] lg:text-[10px] text-zinc-500 uppercase font-bold">HA
+                                        TOTAL</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 space-y-3">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="size-2 rounded-full bg-[var(--accent-green)]"></span>
+                                        <span class="text-[9px] text-zinc-400 font-bold uppercase">Mapeo de
+                                            Malezas</span>
+                                    </div>
+                                    <span class="text-md font-black block pl-4">65% <span
+                                            class="text-[9px] text-zinc-500 font-normal">27.8K ha</span></span>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="size-2 rounded-full bg-[var(--grafana-blue)]"></span>
+                                        <span class="text-[9px] text-zinc-400 font-bold uppercase">Planting
+                                            Quality</span>
+                                    </div>
+                                    <span class="text-md font-black block pl-4">28% <span
+                                            class="text-[9px] text-zinc-500 font-normal">12.0K ha</span></span>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="size-2 rounded-full bg-[var(--grafana-orange)]"></span>
+                                        <span class="text-[9px] text-zinc-400 font-bold uppercase">Pulverización</span>
+                                    </div>
+                                    <span class="text-md font-black block pl-4">7% <span
+                                            class="text-[9px] text-zinc-500 font-normal">3.0K ha</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grafana-panel p-5 flex flex-col flex-1 h-full">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">Total Ahorro
+                                Obtenido (Mapeo)</h3>
+                            <div class="text-right">
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-2xl font-black text-[var(--accent-green)]">$34,150</span>
+                                    <span class="text-[9px] font-bold text-zinc-500 uppercase">USD</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 w-full relative group/chart mt-2 min-h-0">
+                            <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 80">
+                                <defs>
+                                    <linearGradient id="areaGradHeader" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" stop-color="var(--accent-green)" stop-opacity="0.3"></stop>
+                                        <stop offset="100%" stop-color="var(--accent-green)" stop-opacity="0"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0,70 L133,65 L266,50 L400,35 L533,25 L666,15 L800,10 L800,80 L0,80 Z"
+                                    fill="url(#areaGradHeader)"></path>
+                                <path d="M0,70 L133,65 L266,50 L400,35 L533,25 L666,15 L800,10" fill="none"
+                                    stroke="var(--accent-green)" stroke-width="2"></path>
+                            </svg>
+                            <div
+                                class="flex justify-between text-[8px] text-zinc-600 font-bold mt-1 uppercase tracking-tighter">
+                                <span>Ene</span><span>Feb</span><span>Mar</span><span>Abr</span><span>May</span><span>Jun</span><span>Jul</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12 lg:col-span-8 flex flex-col h-full">
+                    <div class="grafana-panel flex-1 relative overflow-hidden min-h-[50vh]">
+                        <div
+                            class="absolute top-0 left-0 right-0 p-4 z-10 bg-gradient-to-b from-black/90 to-transparent">
+                            <h4 class="text-[11px] font-bold text-zinc-200 uppercase flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">radar</span> Mapa A: Monitor de
+                                Operaciones
+                            </h4>
+                        </div>
+                        <div class="absolute inset-0 grayscale invert opacity-20 pointer-events-none bg-center bg-cover"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBVSKRQo9StpVxbwdRXdye4O3ZcgOEeHyu6NGWgRfjVsfdsyHBn9x0uXC4u8K33jzz-D-UMXNjzsjs-LmkxMVKlZJA4kN_rm4pYpMESo1VhMLdCrIUNAhomu1lJM93GTcIOj8BAcKKG3FJ5r442VCu8ghwbhiqd6Tz-nZ5VauCwbFv6791oH6IZkQ4oip5S5KHwrmURQi4FqqBPLLO5Vm-F9aTV4bRE0vXbbMTV6TThVgXSBJlb2DcJ8L5sW8ZcHsg2mZE24db-Ag8E');">
+                        </div>
+                        <div class="absolute top-[35%] left-[42%] group cursor-pointer">
+                            <div
+                                class="size-4 bg-[var(--accent-green)] rounded-full animate-pulse shadow-[0_0_15px_rgba(50,215,75,0.8)]">
+                            </div>
+                            <div
+                                class="map-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1c1e23] border border-[var(--border-muted)] p-3 rounded popover-shadow min-w-[160px] z-50">
+                                <div
+                                    class="text-[9px] text-zinc-500 uppercase font-bold mb-1 border-b border-zinc-800 pb-1">
+                                    Detalle del Lote</div>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Lote</span><span
+                                            class="text-[10px] font-bold text-white">Las Acacias - L4</span></div>
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Superficie</span><span
+                                            class="text-[10px] font-bold text-white">142 Ha</span></div>
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Tarea</span><span
+                                            class="text-[10px] font-bold text-[var(--accent-green)] uppercase">Procesado</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute top-full left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[#1c1e23]">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-[55%] left-[65%] group cursor-pointer">
+                            <div
+                                class="size-4 bg-[var(--grafana-blue)] rounded-full shadow-[0_0_15px_rgba(50,116,217,0.8)]">
+                            </div>
+                            <div
+                                class="map-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1c1e23] border border-[var(--border-muted)] p-3 rounded popover-shadow min-w-[160px] z-50">
+                                <div
+                                    class="text-[9px] text-zinc-500 uppercase font-bold mb-1 border-b border-zinc-800 pb-1">
+                                    Detalle del Lote</div>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Lote</span><span
+                                            class="text-[10px] font-bold text-white">Don Joaquin - L2</span></div>
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Superficie</span><span
+                                            class="text-[10px] font-bold text-white">85 Ha</span></div>
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Tarea</span><span
+                                            class="text-[10px] font-bold text-[var(--grafana-blue)] uppercase">Solicitado</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute top-full left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[#1c1e23]">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-[25%] left-[20%] group cursor-pointer">
+                            <div
+                                class="size-4 bg-[var(--grafana-orange)] rounded-full shadow-[0_0_15px_rgba(242,153,74,0.8)]">
+                            </div>
+                            <div
+                                class="map-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1c1e23] border border-[var(--border-muted)] p-3 rounded popover-shadow min-w-[160px] z-50">
+                                <div
+                                    class="text-[9px] text-zinc-500 uppercase font-bold mb-1 border-b border-zinc-800 pb-1">
+                                    Detalle del Lote</div>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Lote</span><span
+                                            class="text-[10px] font-bold text-white">La Esperanza - L12</span></div>
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Superficie</span><span
+                                            class="text-[10px] font-bold text-white">210 Ha</span></div>
+                                    <div class="flex justify-between gap-4"><span
+                                            class="text-[8px] text-zinc-500 uppercase">Tarea</span><span
+                                            class="text-[10px] font-bold text-[var(--grafana-orange)] uppercase">Pendiente</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute top-full left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[#1c1e23]">
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute bottom-6 left-6 flex flex-col gap-2 bg-black/70 p-3 border border-zinc-700 rounded text-[9px] uppercase font-bold backdrop-blur-sm">
+                            <div class="flex items-center gap-2"><span
+                                    class="size-2 rounded-full bg-[var(--accent-green)]"></span> Procesado (1)</div>
+                            <div class="flex items-center gap-2"><span
+                                    class="size-2 rounded-full bg-[var(--grafana-blue)]"></span> Solicitado (1)</div>
+                            <div class="flex items-center gap-2"><span
+                                    class="size-2 rounded-full bg-[var(--grafana-orange)]"></span> Pendiente (1)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Inteligencia de Red (Full Viewport) -->
+        <!-- Requirement: min-h-screen, Map B height 55vh, aligned panels -->
+        <section class="flex flex-col min-h-screen">
+            <div class="section-header flex-none">
+                <span class="section-title">Inteligencia de Red</span>
+            </div>
+            <div class="space-y-3 flex-1 flex flex-col">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 flex-none">
+                    <div class="grafana-panel p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="size-8 bg-zinc-800/50 rounded flex items-center justify-center text-[var(--accent-green)] border border-zinc-700/50">
+                                <span class="material-symbols-outlined text-lg">badge</span>
+                            </div>
+                            <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-tight">Pilotos
+                                Contratados</span>
+                        </div>
+                        <span class="text-2xl font-black text-white">10</span>
+                    </div>
+                    <div class="grafana-panel p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="size-8 bg-zinc-800/50 rounded flex items-center justify-center text-[var(--grafana-blue)] border border-zinc-700/50">
+                                <span class="material-symbols-outlined text-lg">send_and_archive</span>
+                            </div>
+                            <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-tight">Postulaciones por
+                                Vuelo</span>
+                        </div>
+                        <span class="text-2xl font-black text-white">6</span>
+                    </div>
+                    <div class="grafana-panel p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="size-8 bg-zinc-800/50 rounded flex items-center justify-center text-[var(--grafana-orange)] border border-zinc-700/50 relative">
+                                <span class="material-symbols-outlined text-lg">history</span>
+                                <span
+                                    class="absolute top-0 right-0 size-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                            </div>
+                            <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-tight">Solicitudes
+                                Hoy</span>
+                        </div>
+                        <span class="text-2xl font-black text-white">7</span>
+                    </div>
+                </div>
+                <!-- Main Grid with Explicit Height for Alignment -->
+                <div class="grid grid-cols-12 gap-3 h-[55vh]">
+                    <div class="col-span-12 lg:col-span-7 h-full">
+                        <div class="grafana-panel overflow-hidden h-full relative">
+                            <div
+                                class="absolute top-0 left-0 right-0 p-3 z-10 bg-gradient-to-b from-black/80 to-transparent">
+                                <h4 class="text-[10px] font-bold text-zinc-300 uppercase flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-xs">group</span> Mapa B: Red de Pilotos
+                                </h4>
+                            </div>
+                            <div class="absolute inset-0 grayscale invert opacity-20 pointer-events-none bg-center bg-cover"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBVSKRQo9StpVxbwdRXdye4O3ZcgOEeHyu6NGWgRfjVsfdsyHBn9x0uXC4u8K33jzz-D-UMXNjzsjs-LmkxMVKlZJA4kN_rm4pYpMESo1VhMLdCrIUNAhomu1lJM93GTcIOj8BAcKKG3FJ5r442VCu8ghwbhiqd6Tz-nZ5VauCwbFv6791oH6IZkQ4oip5S5KHwrmURQi4FqqBPLLO5Vm-F9aTV4bRE0vXbbMTV6TThVgXSBJlb2DcJ8L5sW8ZcHsg2mZE24db-Ag8E');">
+                            </div>
+                            <div class="absolute top-[45%] left-[30%] group cursor-pointer z-20">
+                                <div
+                                    class="size-6 bg-white border-2 border-[var(--accent-green)] rounded-full flex items-center justify-center shadow-lg">
+                                    <span
+                                        class="material-symbols-outlined text-[14px] text-black font-bold">person</span>
+                                </div>
+                                <div
+                                    class="map-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1c1e23] border border-[var(--border-muted)] p-3 rounded popover-shadow min-w-[180px] z-50">
+                                    <div
+                                        class="text-[9px] text-zinc-500 uppercase font-bold mb-1 border-b border-zinc-800 pb-1">
+                                        Ficha del Piloto</div>
+                                    <div class="space-y-1.5">
+                                        <div>
+                                            <div class="text-[8px] text-zinc-500 uppercase">Nombre</div>
+                                            <div class="text-[11px] font-bold text-white">Ana Torres</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-[8px] text-zinc-500 uppercase">Drones</div>
+                                            <div class="text-[10px] text-zinc-300">DJI Mavic 3M, Phantom 4 RTK</div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="absolute top-full left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[#1c1e23]">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-[65%] left-[70%] group cursor-pointer z-20">
+                                <div
+                                    class="size-6 bg-white border-2 border-[var(--grafana-blue)] rounded-full flex items-center justify-center shadow-lg">
+                                    <span
+                                        class="material-symbols-outlined text-[14px] text-black font-bold">person</span>
+                                </div>
+                                <div
+                                    class="map-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1c1e23] border border-[var(--border-muted)] p-3 rounded popover-shadow min-w-[180px] z-50">
+                                    <div
+                                        class="text-[9px] text-zinc-500 uppercase font-bold mb-1 border-b border-zinc-800 pb-1">
+                                        Ficha del Piloto</div>
+                                    <div class="space-y-1.5">
+                                        <div>
+                                            <div class="text-[8px] text-zinc-500 uppercase">Nombre</div>
+                                            <div class="text-[11px] font-bold text-white">Carlos Paez</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-[8px] text-zinc-500 uppercase">Drones</div>
+                                            <div class="text-[10px] text-zinc-300">DJI Agras T40</div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="absolute top-full left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[#1c1e23]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-5 flex flex-col gap-3 h-full">
+                        <div class="grafana-panel p-5 flex-none">
+                            <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Precio
+                                Promedio por Hectárea</h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="flex flex-col border-r border-zinc-800">
+                                    <span
+                                        class="text-[9px] font-bold text-zinc-500 uppercase tracking-tight">Malezas</span>
+                                    <div class="flex items-baseline gap-1">
+                                        <span class="text-xl font-black text-[var(--accent-green)]">2.5</span>
+                                        <span class="text-[8px] font-bold text-zinc-400">USD/ha</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col border-r border-zinc-800">
+                                    <span
+                                        class="text-[9px] font-bold text-zinc-500 uppercase tracking-tight">Planting</span>
+                                    <div class="flex items-baseline gap-1">
+                                        <span class="text-xl font-black text-[var(--grafana-blue)]">1.8</span>
+                                        <span class="text-[8px] font-bold text-zinc-400">USD/ha</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span
+                                        class="text-[9px] font-bold text-zinc-500 uppercase tracking-tight">Pulverización</span>
+                                    <div class="flex items-baseline gap-1">
+                                        <span class="text-xl font-black text-[var(--grafana-orange)]">4.5</span>
+                                        <span class="text-[8px] font-bold text-zinc-400">USD/ha</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grafana-panel p-5 flex-1 flex flex-col min-h-0">
+                            <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Ranking de
+                                Drones (Top Utilizados)</h3>
+                            <div class="space-y-4 overflow-y-auto custom-scrollbar flex-1 pr-1">
+                                <div>
+                                    <div
+                                        class="flex items-center justify-between mb-2 border-l-2 border-[var(--grafana-blue)] pl-2">
+                                        <span
+                                            class="text-[9px] font-bold text-zinc-500 uppercase tracking-tighter">Fotogrametría</span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex justify-between text-[10px] font-medium">
+                                                <span class="text-zinc-200">DJI Mavic 3M</span>
+                                                <span class="text-[var(--accent-green)] font-bold">1.240 hs</span>
+                                            </div>
+                                            <div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden flex">
+                                                <div class="h-full bg-[var(--grafana-blue)]" style="width: 85%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex justify-between text-[10px] font-medium">
+                                                <span class="text-zinc-200">Phantom 4 RTK</span>
+                                                <span class="text-[var(--accent-green)] font-bold">820 hs</span>
+                                            </div>
+                                            <div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden flex">
+                                                <div class="h-full bg-[var(--grafana-blue)]" style="width: 60%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex justify-between text-[10px] font-medium">
+                                                <span class="text-zinc-200">DJI Mavic 2 Pro</span>
+                                                <span class="text-[var(--accent-green)] font-bold">450 hs</span>
+                                            </div>
+                                            <div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden flex">
+                                                <div class="h-full bg-[var(--grafana-blue)]" style="width: 35%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="flex items-center justify-between mb-2 border-l-2 border-[var(--grafana-orange)] pl-2">
+                                        <span
+                                            class="text-[9px] font-bold text-zinc-500 uppercase tracking-tighter">Pulverizadores</span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex justify-between text-[10px] font-medium">
+                                                <span class="text-zinc-200">DJI Agras T40</span>
+                                                <span class="text-[var(--accent-green)] font-bold">950 hs</span>
+                                            </div>
+                                            <div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                                <div class="h-full bg-[var(--grafana-orange)]" style="width: 90%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex justify-between text-[10px] font-medium">
+                                                <span class="text-zinc-200">DJI Agras T30</span>
+                                                <span class="text-[var(--accent-green)] font-bold">680 hs</span>
+                                            </div>
+                                            <div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                                <div class="h-full bg-[var(--grafana-orange)]" style="width: 65%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <div class="flex justify-between text-[10px] font-medium">
+                                                <span class="text-zinc-200">XAG P100</span>
+                                                <span class="text-[var(--accent-green)] font-bold">420 hs</span>
+                                            </div>
+                                            <div class="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                                <div class="h-full bg-[var(--grafana-orange)]" style="width: 40%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Logística y Trazabilidad (Remaining Height/Flexible) -->
+        <section class="flex flex-col min-h-[50vh]">
+            <div class="section-header flex-none">
+                <span class="section-title">Logística y Trazabilidad</span>
+            </div>
+            <div class="grid grid-cols-12 gap-3 flex-1 h-full">
+                <div class="col-span-12 lg:col-span-4 grafana-panel p-5 flex flex-col h-[400px]">
+                    <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Detalle de
+                        Solicitudes</h3>
+                    <div class="space-y-4 overflow-y-auto custom-scrollbar flex-1 pr-1">
+                        <div class="bg-[#1c1e23] p-3 rounded-sm border-l-2 border-[var(--grafana-blue)]">
+                            <span
+                                class="text-[9px] font-bold text-[var(--grafana-blue)] uppercase tracking-tighter mb-2 block">Planting
+                                Quality</span>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-xs text-zinc-500">grid_view</span>
+                                        <span class="text-[11px] text-zinc-300">Siembra Fija</span>
+                                    </div>
+                                    <span class="text-[11px] font-black">45 tareas</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-xs text-zinc-500">layers</span>
+                                        <span class="text-[11px] text-zinc-300">Siembra Variable</span>
+                                    </div>
+                                    <span class="text-[11px] font-black">32 tareas</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-[#1c1e23] p-3 rounded-sm border-l-2 border-[var(--accent-green)]">
+                            <span
+                                class="text-[9px] font-bold text-[var(--accent-green)] uppercase tracking-tighter mb-2 block">Mapeo
+                                de Malezas</span>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-xs text-zinc-500">eco</span>
+                                        <span class="text-[11px] text-zinc-300">Verde sobre Verde</span>
+                                    </div>
+                                    <span class="text-[11px] font-black">88 tareas</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span
+                                            class="material-symbols-outlined text-xs text-zinc-500">potted_plant</span>
+                                        <span class="text-[11px] text-zinc-300">Verde sobre Marrón</span>
+                                    </div>
+                                    <span class="text-[11px] font-black">54 tareas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12 lg:col-span-8 grafana-panel flex flex-col overflow-hidden h-[400px]">
+                    <div
+                        class="p-4 border-b border-[var(--border-muted)] bg-zinc-900/40 flex flex-wrap justify-between items-center gap-4 flex-none">
+                        <div class="flex items-center gap-3">
+                            <h3 class="text-xs font-bold uppercase tracking-wider">Tabla de Auditoría Operativa</h3>
+                        </div>
+                        <button
+                            class="flex items-center gap-2 px-4 h-8 bg-[var(--panel-bg)] border border-[var(--border-muted)] text-[10px] font-bold hover:bg-zinc-800 rounded transition-colors uppercase">
+                            <span class="material-symbols-outlined text-sm">download</span> Exportar CSV
+                        </button>
+                    </div>
+                    <div class="flex-1 overflow-x-auto overflow-y-auto whitespace-nowrap custom-scrollbar">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead
+                                class="bg-[#1c1e23] text-zinc-500 font-bold uppercase tracking-widest text-[9px] sticky top-0 z-10">
+                                <tr>
+                                    <th class="px-6 py-3 border-b border-[var(--border-muted)]">Establecimiento</th>
+                                    <th class="px-6 py-3 border-b border-[var(--border-muted)]">Cliente</th>
+                                    <th class="px-6 py-3 border-b border-[var(--border-muted)]">Superficie</th>
+                                    <th class="px-6 py-3 border-b border-[var(--border-muted)]">Tarea Registrada</th>
+                                    <th class="px-6 py-3 border-b border-[var(--border-muted)]">Piloto</th>
+                                    <th class="px-6 py-3 border-b border-[var(--border-muted)]">Estado</th>
+                                    <th class="px-6 py-3 border-b border-[var(--border-muted)]">Solicitud</th>
+                                    <th class="px-6 py-3 border-b border-[var(--border-muted)]">Vuelo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[var(--border-muted)]">
+                                <tr class="hover:bg-zinc-800/40 transition-colors">
+                                    <td class="px-6 py-4 font-semibold text-zinc-200">La Perseverancia</td>
+                                    <td class="px-6 py-4 text-zinc-300">AgroSud</td>
+                                    <td class="px-6 py-4 text-zinc-300">450 Ha</td>
+                                    <td class="px-6 py-4 text-zinc-300">Mapeo Malezas</td>
+                                    <td class="px-6 py-4 text-zinc-300">Carlos R.</td>
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#32d74b]/10 text-[#32d74b] border border-[#32d74b]/20">
+                                            <div class="size-1.5 rounded-full bg-[#32d74b]"></div> Procesado
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-zinc-400">10/01</td>
+                                    <td class="px-6 py-4 text-zinc-400">12/01/2026</td>
+                                </tr>
+                                <tr class="hover:bg-zinc-800/40 transition-colors">
+                                    <td class="px-6 py-4 font-semibold text-zinc-200">Don Luis</td>
+                                    <td class="px-6 py-4 text-zinc-300">Estancias S.A</td>
+                                    <td class="px-6 py-4 text-zinc-300">280 Ha</td>
+                                    <td class="px-6 py-4 text-zinc-300">Planting Quality</td>
+                                    <td class="px-6 py-4 text-zinc-300">Sofía M.</td>
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#f2994a]/10 text-[#f2994a] border border-[#f2994a]/20">
+                                            <div class="size-1.5 rounded-full bg-[#f2994a]"></div> Pendiente
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-zinc-400">15/01</td>
+                                    <td class="px-6 py-4 text-zinc-400">---</td>
+                                </tr>
+                                <tr class="hover:bg-zinc-800/40 transition-colors">
+                                    <td class="px-6 py-4 font-semibold text-zinc-200">El Amanecer</td>
+                                    <td class="px-6 py-4 text-zinc-300">Grupo Terra</td>
+                                    <td class="px-6 py-4 text-zinc-300">600 Ha</td>
+                                    <td class="px-6 py-4 text-zinc-300">Pulverización</td>
+                                    <td class="px-6 py-4 text-zinc-300">Marcos P.</td>
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#3274d9]/10 text-[#3274d9] border border-[#3274d9]/20">
+                                            <div class="size-1.5 rounded-full bg-[#3274d9]"></div> Solicitado
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-zinc-400">18/01</td>
+                                    <td class="px-6 py-4 text-zinc-400">---</td>
+                                </tr>
+                                <tr class="hover:bg-zinc-800/40 transition-colors">
+                                    <td class="px-6 py-4 font-semibold text-zinc-200">Santa Isabel</td>
+                                    <td class="px-6 py-4 text-zinc-300">BioAgro</td>
+                                    <td class="px-6 py-4 text-zinc-300">120 Ha</td>
+                                    <td class="px-6 py-4 text-zinc-300">Mapeo Malezas</td>
+                                    <td class="px-6 py-4 text-zinc-300">Ana T.</td>
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#32d74b]/10 text-[#32d74b] border border-[#32d74b]/20">
+                                            <div class="size-1.5 rounded-full bg-[#32d74b]"></div> Procesado
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-zinc-400">05/01</td>
+                                    <td class="px-6 py-4 text-zinc-400">07/01/2026</td>
+                                </tr>
+                                <tr class="hover:bg-zinc-800/40 transition-colors">
+                                    <td class="px-6 py-4 font-semibold text-zinc-200">Las Acacias</td>
+                                    <td class="px-6 py-4 text-zinc-300">AgroSud</td>
+                                    <td class="px-6 py-4 text-zinc-300">340 Ha</td>
+                                    <td class="px-6 py-4 text-zinc-300">Planting Quality</td>
+                                    <td class="px-6 py-4 text-zinc-300">Carlos R.</td>
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#32d74b]/10 text-[#32d74b] border border-[#32d74b]/20">
+                                            <div class="size-1.5 rounded-full bg-[#32d74b]"></div> Procesado
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-zinc-400">12/01</td>
+                                    <td class="px-6 py-4 text-zinc-400">14/01/2026</td>
+                                </tr>
+                                <tr class="hover:bg-zinc-800/40 transition-colors">
+                                    <td class="px-6 py-4 font-semibold text-zinc-200">Los Ombúes</td>
+                                    <td class="px-6 py-4 text-zinc-300">Pampa Viva</td>
+                                    <td class="px-6 py-4 text-zinc-300">510 Ha</td>
+                                    <td class="px-6 py-4 text-zinc-300">Pulverización</td>
+                                    <td class="px-6 py-4 text-zinc-300">Luis G.</td>
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#3274d9]/10 text-[#3274d9] border border-[#32d74b]/20">
+                                            <div class="size-1.5 rounded-full bg-[#3274d9]"></div> Solicitado
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-zinc-400">20/01</td>
+                                    <td class="px-6 py-4 text-zinc-400">---</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
