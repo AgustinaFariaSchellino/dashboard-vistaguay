@@ -31,51 +31,48 @@ const CROP_RANKING_DATA = [
         name: 'SOJA',
         total: '25.000 Ha',
         segments: [
-            { province: 'Córdoba', percentage: 50, ha: '12.500 Ha', color: '#00ff88' },
-            { province: 'Santa Fe', percentage: 30, ha: '7.500 Ha', color: '#0066ff' },
-            { province: 'Buenos Aires', percentage: 20, ha: '5.000 Ha', color: '#a855f7' }
+            { province: 'Mapeo de Malezas', percentage: 50, ha: '12.500 Ha', color: '#00ff88' },
+            { province: 'Aplicación', percentage: 50, ha: '5.000 Ha', color: '#f2994a' }
         ]
     },
     {
         name: 'MAÍZ',
         total: '18.200 Ha',
         segments: [
-            { province: 'Córdoba', percentage: 40, ha: '7.280 Ha', color: '#00ff88' },
-            { province: 'Entre Ríos', percentage: 40, ha: '7.280 Ha', color: '#0066ff' },
-            { province: 'La Pampa', percentage: 20, ha: '3.640 Ha', color: '#d97706' }
+            { province: 'Mapeo de Malezas', percentage: 60, ha: '7.280 Ha', color: '#00ff88' },
+            { province: 'Planting Quality', percentage: 40, ha: '7.280 Ha', color: '#0066ff' },
         ]
     },
     {
         name: 'GIRASOL',
         total: '9.500 Ha',
         segments: [
-            { province: 'Buenos Aires', percentage: 70, ha: '6.650 Ha', color: '#a855f7' },
-            { province: 'Chaco', percentage: 30, ha: '2.850 Ha', color: '#fade62ff' }
+            { province: 'Aplicación', percentage: 70, ha: '6.650 Ha', color: '#f2994a' },
+            { province: 'Planting Quality', percentage: 30, ha: '2.850 Ha', color: '#0066ff' }
         ]
     },
     {
         name: 'TRIGO',
         total: '12.800 Ha',
         segments: [
-            { province: 'Buenos Aires', percentage: 60, ha: '7.680 Ha', color: '#a855f7' },
-            { province: 'Santa Fe', percentage: 25, ha: '3.200 Ha', color: '#0066ff' },
-            { province: 'Córdoba', percentage: 15, ha: '1.920 Ha', color: '#00ff88' }
+            { province: 'Aplicación', percentage: 70, ha: '7.680 Ha', color: '#f2994a' },
+            { province: 'Mapeo de Malezas', percentage: 30, ha: '1.920 Ha', color: '#00ff88' }
         ]
     },
     {
         name: 'CEBADA',
         total: '7.400 Ha',
         segments: [
-            { province: 'Buenos Aires', percentage: 80, ha: '5.920 Ha', color: '#a855f7' },
-            { province: 'La Pampa', percentage: 20, ha: '1.480 Ha', color: '#d97706' }
+            { province: 'Aplicación', percentage: 80, ha: '5.920 Ha', color: '#f2994a' },
+            { province: 'Mapeo de Malezas', percentage: 20, ha: '1.480 Ha', color: '#00ff88' }
         ]
     },
     {
         name: 'MANÍ',
         total: '5.200 Ha',
         segments: [
-            { province: 'Córdoba', percentage: 90, ha: '4.680 Ha', color: '#00ff88' },
-            { province: 'San Luis', percentage: 10, ha: '520 Ha', color: '#f15c95ff' }
+            { province: 'Mapeo de Malezas', percentage: 90, ha: '4.680 Ha', color: '#00ff88' },
+            { province: 'Planting Quality', percentage: 10, ha: '520 Ha', color: '#0066ff' }
         ]
     },
 

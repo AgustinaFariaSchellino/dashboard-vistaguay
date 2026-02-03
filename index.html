@@ -53,6 +53,38 @@
                         <option>Semillero Jose B.</option>
                     </select>
                 </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase font-bold text-zinc-500 leading-none mb-1">Pais</span>
+                    <select
+                        class="h-6 bg-[var(--background-dark)] border border-[var(--border-muted)] rounded text-[11px] font-bold py-0 pl-2 pr-8 focus:ring-1 focus:ring-[var(--accent-green)]">
+                        <option>Todos</option>
+                        <option>Argentina</option>
+                        <option>Uruguay</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase font-bold text-zinc-500 leading-none mb-1">Provincia</span>
+                    <select
+                        class="h-6 bg-[var(--background-dark)] border border-[var(--border-muted)] rounded text-[11px] font-bold py-0 pl-2 pr-8 focus:ring-1 focus:ring-[var(--accent-green)]">
+                        <option>Todos</option>
+                        <option>Buenos Aires</option>
+                        <option>Entre Rios</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase font-bold text-zinc-500 leading-none mb-1">Zona Comercial</span>
+                    <select
+                        class="h-6 bg-[var(--background-dark)] border border-[var(--border-muted)] rounded text-[11px] font-bold py-0 pl-2 pr-8 focus:ring-1 focus:ring-[var(--accent-green)]">
+                        <option>Todos</option>
+                        <option>Pampa humeda Norte</option>
+                        <option>Pampa humeda Sur</option>
+                        <option>Pampa seca</option>
+                        <option>NOA</option>
+                        <option>NEA</option>
+                        <option>Cuyo</option>
+                        <option>Patagonia</option>
+                    </select>
+                </div>
             </div>
         </div>
     </header>
@@ -121,7 +153,7 @@
                 <div class="col-span-12 lg:col-span-4 flex flex-col h-full">
                     <div class="grafana-panel p-5 flex flex-col h-full">
                         <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Ranking de
-                            Cultivos por Provincia</h3>
+                            Cultivos por Tarea</h3>
                         <div id="crop-ranking-container"
                             class="flex-1 flex flex-col gap-4 overflow-y-auto custom-scrollbar pr-1">
                             <!-- Crop Ranking Rendered by JS -->
