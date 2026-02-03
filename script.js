@@ -184,8 +184,8 @@ function renderImpactChart() {
     svgContent += `
         </svg>
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <span class="text-xl lg:text-3xl font-black leading-none">${IMPACT_DATA.totalHectares.toLocaleString()}</span>
-            <span class="text-[8px] lg:text-[10px] text-zinc-500 uppercase font-bold">HA TOTAL</span>
+            <span class="text-3xl lg:text-4xl font-black leading-none">${IMPACT_DATA.totalHectares.toLocaleString()}</span>
+            <span class="text-[10px] lg:text-xs text-zinc-500 uppercase font-bold">HA TOTAL</span>
         </div>
     `;
 
@@ -197,9 +197,9 @@ function renderImpactChart() {
             <div>
                 <div class="flex items-center gap-2">
                     <span class="size-2 rounded-full" style="background-color: ${seg.color}"></span>
-                    <span class="text-[9px] text-zinc-400 font-bold uppercase">${seg.name}</span>
+                    <span class="text-[10px] text-zinc-400 font-bold uppercase">${seg.name}</span>
                 </div>
-                <span class="text-md font-black block pl-4">${seg.percentage}% <span class="text-[9px] text-zinc-500 font-normal">${seg.value} ha</span></span>
+                <span class="text-lg font-black block pl-4">${seg.percentage}% <span class="text-[10px] text-zinc-500 font-normal">${seg.value} ha</span></span>
             </div>
         `).join('');
     }
@@ -281,13 +281,13 @@ function renderCropRanking() {
     container.innerHTML = CROP_RANKING_DATA.map(crop => `
         <div class="flex flex-col gap-1.5">
             <div class="flex justify-between items-baseline">
-                <span class="text-[10px] font-bold text-white">${crop.name}</span>
-                <span class="text-[9px] font-bold text-zinc-400">${crop.total}</span>
+                <span class="text-xs font-bold text-white">${crop.name}</span>
+                <span class="text-[10px] font-bold text-zinc-400">${crop.total}</span>
             </div>
-            <div class="h-2 w-full bg-zinc-800 rounded-full flex overflow-hidden">
+            <div class="h-3 w-full bg-zinc-800 rounded-full flex overflow-hidden">
                 ${crop.segments.map(seg => `
                     <div class="h-full relative group cursor-pointer" style="width: ${seg.percentage}%; background-color: ${seg.color}">
-                         <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1c1e23] border border-[var(--border-muted)] px-2 py-1 rounded shadow-lg text-[9px] font-bold whitespace-nowrap z-50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                         <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1c1e23] border border-[var(--border-muted)] px-2 py-1 rounded shadow-lg text-[10px] font-bold whitespace-nowrap z-50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                             <span style="color: ${seg.color}">${seg.province}</span> | <span class="text-white">${seg.ha}</span>
                             <div class="absolute top-full left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[#1c1e23]"></div>
                         </div>
@@ -297,8 +297,8 @@ function renderCropRanking() {
             <div class="flex gap-2">
                 ${crop.segments.map(seg => `
                     <div class="flex items-center gap-1">
-                        <div class="size-1 rounded-full" style="background-color: ${seg.color}"></div>
-                        <span class="text-[8px] text-zinc-500">${seg.province} ${seg.percentage}%</span>
+                        <div class="size-1.5 rounded-full" style="background-color: ${seg.color}"></div>
+                        <span class="text-[10px] text-zinc-500">${seg.province} ${seg.percentage}%</span>
                     </div>
                 `).join('')}
             </div>
@@ -357,10 +357,10 @@ function renderPrices() {
 
     container.innerHTML = PRICES_DATA.map((item, index) => `
         <div class="flex flex-col ${index < PRICES_DATA.length - 1 ? 'border-r border-zinc-800' : ''}">
-            <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-tight">${item.name}</span>
+            <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-tight">${item.name}</span>
             <div class="flex items-baseline gap-1">
-                <span class="text-xl font-black" style="color: ${item.color}">${item.price}</span>
-                <span class="text-[8px] font-bold text-zinc-400">USD/ha</span>
+                <span class="text-3xl font-black" style="color: ${item.color}">${item.price}</span>
+                <span class="text-[10px] font-bold text-zinc-400">USD/ha</span>
             </div>
         </div>
     `).join('');
@@ -408,13 +408,13 @@ function renderRequestDetails() {
 
     container.innerHTML = REQUEST_DETAILS.map(cat => `
         <div class="bg-[#1c1e23] p-3 rounded-sm border-l-2" style="border-color: ${cat.color.startsWith('var') ? cat.color : ''}" class="${!cat.color.startsWith('var') ? 'border-' + cat.color : ''}">
-            <span class="text-[9px] font-bold uppercase tracking-tighter mb-2 block" style="color: ${cat.color.startsWith('var') ? cat.color : ''}" class="${!cat.color.startsWith('var') ? 'text-' + cat.color : ''}">${cat.title}</span>
+            <span class="text-[10px] font-bold uppercase tracking-tighter mb-2 block" style="color: ${cat.color.startsWith('var') ? cat.color : ''}" class="${!cat.color.startsWith('var') ? 'text-' + cat.color : ''}">${cat.title}</span>
             <div class="space-y-2">
                 ${cat.items.map(item => `
-                    <div class="flex items-center justify-between text-[11px]">
+                    <div class="flex items-center justify-between text-xs">
                         ${item.icon ? `
                         <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-xs text-zinc-500">${item.icon}</span>
+                            <span class="material-symbols-outlined text-sm text-zinc-500">${item.icon}</span>
                             <span class="text-zinc-300">${item.label}</span>
                         </div>` : `<span class="text-zinc-300">${item.label}</span>`}
                         <span class="font-black">${item.count}</span>
@@ -431,18 +431,18 @@ function renderAuditTable() {
 
     tbody.innerHTML = AUDIT_DATA.map(row => `
         <tr class="hover:bg-zinc-800/40 transition-colors">
-            <td class="px-6 py-4 font-semibold text-zinc-200">${row.establishment}</td>
-            <td class="px-6 py-4 text-zinc-300">${row.client}</td>
-            <td class="px-6 py-4 text-zinc-300">${row.surface}</td>
-            <td class="px-6 py-4 text-zinc-300">${row.task}</td>
-            <td class="px-6 py-4 text-zinc-300">${row.pilot}</td>
+            <td class="px-6 py-4 font-semibold text-zinc-200 text-xs">${row.establishment}</td>
+            <td class="px-6 py-4 text-zinc-300 text-xs">${row.client}</td>
+            <td class="px-6 py-4 text-zinc-300 text-xs">${row.surface}</td>
+            <td class="px-6 py-4 text-zinc-300 text-xs">${row.task}</td>
+            <td class="px-6 py-4 text-zinc-300 text-xs">${row.pilot}</td>
             <td class="px-6 py-4">
                 <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border" style="background-color: ${row.statusColor}1A; color: ${row.statusColor}; border-color: ${row.statusColor}33;">
                     <div class="size-1.5 rounded-full" style="background-color: ${row.statusColor}"></div> ${row.status}
                 </div>
             </td>
-            <td class="px-6 py-4 text-zinc-400">${row.date}</td>
-            <td class="px-6 py-4 text-zinc-400">${row.flight}</td>
+            <td class="px-6 py-4 text-zinc-400 text-xs">${row.date}</td>
+            <td class="px-6 py-4 text-zinc-400 text-xs">${row.flight}</td>
         </tr>
     `).join('');
 }
